@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KPIT Admin</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_locations">Locations</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
