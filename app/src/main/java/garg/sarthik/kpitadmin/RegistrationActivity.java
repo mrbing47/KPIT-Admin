@@ -40,9 +40,10 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegUser = findViewById(R.id.btnRegUser);
 
         etRegEmail.setEnabled(false);
-        etRegName.setEnabled(false);
 
-        etRegName.setText(Variables.firebaseUser.getDisplayName());
+        if(Variables.firebaseUser.getDisplayName() != null)
+            etRegName.setText(Variables.firebaseUser.getDisplayName());
+
         etRegEmail.setText(Variables.firebaseUser.getEmail());
 
         if (Variables.firebaseUser.getPhoneNumber() != null)
@@ -53,14 +54,15 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String name = etRegName.getText().toString().trim().toLowerCase();
                 String mobile = etRegMobile.getText().toString().trim().toLowerCase();
 
-                if (mobile.length() != 10) {
+                if (mobile.length() != 10 || name.isEmpty()) {
                     Toast.makeText(RegistrationActivity.this, "Invalid Data", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                final Admin admin = new Admin(Variables.firebaseUser.getDisplayName(), Variables.firebaseUser.getEmail(), mobile);
+                final Admin admin = new Admin(name, Variables.firebaseUser.getEmail(), mobile);
 
 
                 Variables.colAdmins.document(Variables.firebaseUser.getUid()).set(admin).addOnSuccessListener(new OnSuccessListener<Void>() {
